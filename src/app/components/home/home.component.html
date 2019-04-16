@@ -6,19 +6,11 @@ Ejemplo HTTP CLient
   </li>
 </ul>
 -->
+<app-loading *ngIf="loading"></app-loading>
 
-<div class="card-columns">
-
-  <div *ngFor="let lanzamiento of nuevosLanzamientos" class="card">
-    <img [src]="lanzamiento.images | noimage" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{ lanzamiento.name }}</h5>
-      <p class="card-text">
-        <span *ngFor="let artista of lanzamiento.artists" class="badge badge-pill badge-secondary">
-          {{ artista.name }}
-        </span>
-      </p>
-    </div>
-  </div>
-
+<div *ngIf="error" class="alert alert-danger animated fadeIn m-4">
+  <h3>Error</h3>
+  <p>{{ mensajeError }}</p>
 </div>
+
+<app-tarjetas [items]="nuevosLanzamientos" ></app-tarjetas>

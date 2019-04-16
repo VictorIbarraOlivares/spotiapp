@@ -24,12 +24,25 @@ export class HomeComponent {
   */
 
   nuevosLanzamientos: any[] = [];
+  loading: boolean;
+
+  error: boolean = false;
+  mensajeError: string = "";
+
   constructor( private spotify: SpotifyService) {
+    this.loading = true;
+    this.error = false;
 
     this.spotify.getNewReleases()
         .subscribe( (data: any) => {
           //console.log(data);
           this.nuevosLanzamientos = data;
+          this.loading = false;
+        }, ( errorServicio ) => {
+          console.log(errorServicio.error.error.message);
+          this.error = true;
+          this.loading = false;
+          this.mensajeError = errorServicio.error.error.message;
         });
 
   }

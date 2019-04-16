@@ -17,7 +17,7 @@ export class SpotifyService {
     const url = `https://api.spotify.com/v1/${ query }`;
 
     const headers = new HttpHeaders({
-      'Authorization' : 'Bearer BQDXE1ST35mTN4Pg0RXTkdMV2kAaF-knobeP3O4XWUssQzeoylpK1-6bI2sy1qAlZQl9TmApr3IyMFh14E0'
+      'Authorization' : 'Bearer BQDi-IO2MUmr7b1iNvHGO-7y4r60ZVUURPvAJgqQo5FJCMAhgunuqqBD4I1kEhIRoJR8pxj4QzlG66iXg10'
     });
 
     return this.http.get(url, { headers });
@@ -38,7 +38,7 @@ export class SpotifyService {
               .pipe( map( data =>  data['albums'].items ) );
   }
 
-  getArtista( termino: string ) {
+  getArtistas( termino: string ) {
     /*
     const headers = new HttpHeaders({
       'Authorization' : 'Bearer BQDXE1ST35mTN4Pg0RXTkdMV2kAaF-knobeP3O4XWUssQzeoylpK1-6bI2sy1qAlZQl9TmApr3IyMFh14E0'
@@ -54,6 +54,26 @@ export class SpotifyService {
                .pipe( map( ( data:any ) => {
                  return data.artists.items;
                }) );
+
+  }
+
+  getArtista( termino: string ) {
+
+    return this.getQuery(`artists/${ termino }`);
+               /*.pipe( map( ( data:any ) => {
+                 //return data.artists.items;
+               }) );
+               */
+
+  }
+
+  getTopTracks( termino: string ) {
+
+    return this.getQuery(`artists/${ termino }/top-tracks?country=us`)
+               .pipe( map( ( data:any ) => {
+                 return data.tracks;
+               }) );
+
 
   }
 }
